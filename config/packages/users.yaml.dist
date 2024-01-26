@@ -1,0 +1,6 @@
+security:
+  providers:
+    users_in_memory:
+      memory:
+        users:
+          admin: { password: "12345678", roles: [ROLE_ADMIN] }
