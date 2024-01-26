@@ -20,4 +20,20 @@ class LinkRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Link::class);
     }
+
+    public function save(Link $link, bool $flush = false): void
+    {
+        $this->_em->persist($link);
+        if ($flush) {
+            $this->_em->flush();
+        }
+    }
+
+    public function remove(Link $link, bool $flush = false): void
+    {
+        $this->_em->remove($link);
+        if ($flush) {
+            $this->_em->flush();
+        }
+    }
 }
