@@ -45,7 +45,7 @@ class LinkShortenCommand extends Command
 
         $link = $this->linkService->shorten($longUrl, $shortUrl);
 
-        $io->success(sprintf('Short URL: %s/%s', $this->linkBaseUrl, $link));
+        $io->success(sprintf('Short URL: %s/%s', $this->linkBaseUrl, $link->getShortUrl()));
 
         return Command::SUCCESS;
     }

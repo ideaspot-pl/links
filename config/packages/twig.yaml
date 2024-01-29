@@ -1,5 +1,8 @@
 twig:
     file_name_pattern: '*.twig'
+    globals:
+        app_name: '%env(APP_NAME)%'
+        link_base_url: '%env(LINK_BASE_URL)%'
 
 when@test:
     twig:

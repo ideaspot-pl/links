@@ -27,7 +27,7 @@ class LinkService
         $this->shortUrlLength = $this->decideShortUrlLength();
     }
 
-    public function shorten(string $longUrl, ?string $shortUrl = null): string
+    public function shorten(string $longUrl, ?string $shortUrl = null): Link
     {
         if (!$shortUrl) {
             $shortUrl = $this->generateShortUrl();
@@ -46,7 +46,7 @@ class LinkService
 
         $this->linkRepository->save($link, true);
 
-        return $shortUrl;
+        return $link;
     }
 
     private function decideShortUrlLength(): int

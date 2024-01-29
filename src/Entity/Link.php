@@ -5,8 +5,12 @@ namespace App\Entity;
 use App\Repository\LinkRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: LinkRepository::class)]
+#[ORM\UniqueConstraint(name: 'link_short_url_unique', columns: ['short_url'])]
+#[UniqueEntity('shortUrl', groups: ['create', 'edit'])]
 class Link
 {
     #[ORM\Id]
@@ -15,9 +19,12 @@ class Link
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Regex(pattern: '/^[a-zA-Z0-9-_]+$/', groups: ['create', 'edit'])]
+    #[Assert\Length(min: 3, max: 30, groups: ['create', 'edit'])]
     private ?string $shortUrl = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\Url(protocols: ['http', 'https'], groups: ['create', 'edit'])]
     private ?string $longUrl = null;
 
     #[ORM\Column(type: Types::SMALLINT)]

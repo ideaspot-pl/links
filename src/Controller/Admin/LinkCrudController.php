@@ -40,7 +40,7 @@ class LinkCrudController extends AbstractCrudController
             TextField::new('shortUrl')->hideOnForm()->formatValue(function ($value, $entity) {
                 return sprintf('<a href="%s/%s" target="_blank">%s <i class="fa fa-arrow-up-right-from-square"></i></a>', $this->getParameter('app.link_base_url'), $value, $value);
             }),
-            UrlField::new('longUrl'),
+            TextField::new('longUrl'),
             TextField::new('shortUrl')->onlyOnForms()->setRequired(false),
             BooleanField::new('status')->onlyWhenUpdating(),
             DateTimeField::new('createdAt')->hideOnForm(),
@@ -72,5 +72,16 @@ class LinkCrudController extends AbstractCrudController
     public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
     {
         $this->linkService->shorten($entityInstance->getLongUrl(), $entityInstance->getShortUrl());
+    }
+
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            ->setFormOptions([
+                'validation_groups' => ['create'],
+            ], [
+                'validation_groups' => ['create'],
+            ])
+        ;
     }
 }

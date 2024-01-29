@@ -1,0 +1,41 @@
+{% extends 'anonymous-layout.html.twig' %}
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+
+{% block main %}
+    <div class="row">
+        <div class="col">
+            <h1 class="mb-3">Shorten your URL</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    {{ form_start(form) }}
+                        {{ form_row(form.longUrl) }}
+                        <div class="row">
+                            <div class="col">
+                                <div class="mb-3">
+                                    <label class="form-label" for="domain">Domain</label>
+                                    <input type="text" name="domain" id="domain" disabled class="form-control" value="{{ link_base_url }}">
+                                </div>
+                            </div>
+                            <div class="col-1">
+                                <label>&nbsp;</label>
+                                <input type="text" readonly class="form-control-plaintext text-center mt-2" value="/">
+                            </div>
+                            <div class="col">
+                                {{ form_row(form.shortUrl) }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <button type="submit" class="btn btn-primary float-end">Shorten</button>
+                            </div>
+                        </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

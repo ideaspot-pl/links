@@ -1,0 +1,38 @@
+{% extends 'anonymous-layout.html.twig' %}
+
+{% block main %}
+    <div class="row">
+        <div class="col">
+            <h1 class="mb-3">Share your link!</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-3">
+                                <label class="form-label" for="longUrl">Your long URL</label>
+                                <input type="text" id="longUrl" readonly class="form-control" value="{{ link.longUrl }}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-3">
+                                <label class="form-label" for="shortUrl">Short URL</label>
+                                <input type="text" id="shortUrl" readonly class="form-control" value="{{ link_base_url ~ "/" ~ link.shortUrl }}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 text-end">
+            <a href="{{ path('app_link_create') }}">Create another one! &raquo;</a>
+        </div>
+    </div>
+{% endblock %}
