@@ -42,7 +42,11 @@ class LinkCrudController extends AbstractCrudController
             }),
             TextField::new('longUrl'),
             TextField::new('shortUrl')->onlyOnForms()->setRequired(false),
-            BooleanField::new('status')->onlyWhenUpdating(),
+            BooleanField::new('status')->onlyOnIndex(),
+            ChoiceField::new('status')->hideOnIndex()->setChoices([
+                'Active' => LinkStatusEnum::STATUS_ACTIVE->value,
+                'Inactive' => LinkStatusEnum::STATUS_INACTIVE->value,
+            ]),
             DateTimeField::new('createdAt')->hideOnForm(),
             TextField::new('shortUrl')->onlyOnDetail()->formatValue(function ($value, $entity) {
                 return sprintf('<img alt="qr code" style="max-width: 100%%" src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=%s" >', "{$this->getParameter('app.link_base_url')}/{$value}");
